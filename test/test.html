@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ECharts 世界地图可视化（完整示例）</title>
+  <meta name="description" content="一个可直接运行的 ECharts 世界地图示例，包含视觉映射、提示框、工具箱与自适应布局。" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --fg: #e6e8ef;
+      --card: #111735;
+      --muted: #9aa3b2;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root { --bg: #f6f7fb; --fg: #101828; --card: #ffffff; --muted: #667085; }
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 12px;
+    }
+
+    header {
+      padding: 16px 20px 0 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: .5px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .card {
+      background: var(--card);
+      margin: 12px 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .toolbar .left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    #chart {
+      width: 100%;
+      height: 72vh;  /* 可按需调整高度 */
+    }
+
+    footer {
+      padding: 0 20px 16px 20px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    button, select {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid rgba(255,255,255,.16);
+      padding: 6px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    button:hover, select:hover { border-color: rgba(255,255,255,.28); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>世界地图可视化 · ECharts</h1>
+      <p>示例数据（人口，单位：百万）。支持缩放/拖拽、下载图片、数据视图与窗口自适应。</p>
+    </header>
+
+    <section class="card">
+      <div class="toolbar">
+        <div class="left">
+          <span>配色方案：</span>
+          <select id="palette">
+            <option value="blue">蓝紫渐变</option>
+            <option value="green">绿青渐变</option>
+            <option value="orange">橙红渐变</option>
+          </select>
+        </div>
+        <div class="right">
+          <button id="randomize" title="随机生成数据（演示用）">随机数据</button>
+          <button id="resetView" title="重置视图">重置视图</button>
+        </div>
+      </div>
+      <div id="chart" role="img" aria-label="ECharts 世界地图"></div>
+    </section>
+
+    <footer>
+      数据仅为演示；国家命名来自 GeoJSON。© Apache ECharts | 构建：<a href="https://echarts.apache.org/" target="_blank" rel="noreferrer" style="color:inherit;">ECharts</a>
+    </footer>
+  </div>
+
+  <!-- ECharts v5 CDN -->
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+    // === 1) 示例数据：人口（百万） ===
+    const demoData = () => ([
+      { name: 'China', value: 1440 },
+      { name: 'India', value: 1393 },
+      { name: 'United States of America', value: 332 },
+      { name: 'Indonesia', value: 276 },
+      { name: 'Pakistan', value: 225 },
+      { name: 'Brazil', value: 214 },
+      { name: 'Nigeria', value: 213 },
+      { name: 'Bangladesh', value: 166 },
+      { name: 'Russia', value: 146 },
+      { name: 'Mexico', value: 129 },
+      { name: 'Japan', value: 125 },
+      { name: 'Ethiopia', value: 120 },
+      { name: 'Philippines', value: 111 },
+      { name: 'Egypt', value: 104 },
+      { name: 'Vietnam', value: 98 },
+      { name: 'Germany', value: 83 },
+      { name: 'Turkey', value: 85 },
+      { name: 'Iran', value: 85 },
+      { name: 'Thailand', value: 71 },
+      { name: 'United Kingdom', value: 67 },
+      { name: 'France', value: 67 },
+      { name: 'Italy', value: 60 },
+      { name: 'Tanzania', value: 61 },
+      { name: 'South Africa', value: 60 },
+      { name: 'Canada', value: 38 },
+      { name: 'Australia', value: 26 }
+    ]);
+
+    // 显示名称映射（可按需补充）
+    const nameMap = {
+      'China': '中国',
+      'India': '印度',
+      'United States of America': '美国',
+      'Russia': '俄罗斯',
+      'Japan': '日本',
+      'Korea': '韩国',
+      'Germany': '德国',
+      'France': '法国',
+      'United Kingdom': '英国',
+      'Italy': '意大利',
+      'Spain': '西班牙',
+      'Canada': '加拿大',
+      'Australia': '澳大利亚',
+      'Brazil': '巴西',
+      'Mexico': '墨西哥',
+      'Egypt': '埃及',
+      'Turkey': '土耳其',
+      'South Africa': '南非',
+      'Saudi Arabia': '沙特阿拉伯',
+      'Vietnam': '越南',
+      'Thailand': '泰国',
+      'Iran': '伊朗',
+      'Pakistan': '巴基斯坦',
+      'Nigeria': '尼日利亚',
+      'Bangladesh': '孟加拉国',
+      'Ethiopia': '埃塞俄比亚',
+      'Philippines': '菲律宾',
+      'Tanzania': '坦桑尼亚'
+    };
+
+    // 颜色方案
+    const palettes = {
+      blue: [ '#d7e3ff', '#9fb7ff', '#6b8cff', '#3c60ff', '#1836e0' ],
+      green: [ '#d2f5e3', '#a3e9cf', '#6fd8c0', '#3ab8b0', '#0f8a8a' ],
+      orange: [ '#ffe5cc', '#ffc699', '#ff9e66', '#ff6b3d', '#e63a19' ]
+    };
+
+    // === 2) 初始化图表 ===
+    const chartEl = document.getElementById('chart');
+    const chart = echarts.init(chartEl, null, { renderer: 'canvas' });
+
+    // 加载世界地图 GeoJSON 并注册
+    async function loadMapAndRender(data, paletteKey='blue') {
+      try {
+        const resp = await fetch('https://fastly.jsdelivr.net/npm/echarts/map/json/world.json');
+        const geoJson = await resp.json();
+        echarts.registerMap('world', geoJson);
+
+        const values = data.map(d => d.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+
+        const option = {
+          backgroundColor: 'transparent',
+          title: {
+            text: '世界人口分布（示例）',
+            subtext: '单位：百万人（可替换为你的指标）',
+            left: 'center',
+            top: 8,
+            textStyle: { color: getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() },
+            subtextStyle: { color: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() }
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: params => {
+              const name = (nameMap[params.name] ?? params.name);
+              const val = (params.value != null && params.value !== '') ? params.value : '无数据';
+              return `${name}<br/>值：<b>${val}</b>`;
+            }
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: { title: '下载图片' },
+              restore: { title: '还原' },
+              dataView: { title: '数据视图', readOnly: true }
+            },
+            right: 16
+          },
+          visualMap: {
+            min, max,
+            text: ['高','低'],
+            realtime: true,
+            calculable: true,
+            orient: 'vertical',
+            right: 16,
+            bottom: 24,
+            inRange: { color: palettes[paletteKey] || palettes.blue }
+          },
+          series: [
+            {
+              name: '示例值',
+              type: 'map',
+              map: 'world',
+              roam: true,
+              nameMap,
+              emphasis: {
+                label: { show: false },
+                itemStyle: { areaColor: '#ffd166' }
+              },
+              itemStyle: {
+                borderColor: 'rgba(255,255,255,0.2)'
+              },
+              data
+            }
+          ]
+        };
+
+        chart.setOption(option);
+      } catch (err) {
+        console.error('加载世界地图失败：', err);
+        chart.clear();
+        chart.setOption({
+          title: { text: '世界地图加载失败', left: 'center', top: 'middle', textStyle: { color: '#e74c3c' } }
+        });
+      }
+    }
+
+    // 初始渲染
+    let data = demoData();
+    loadMapAndRender(data, 'blue');
+
+    // 响应式
+    window.addEventListener('resize', () => chart.resize());
+
+    // 交互：随机数据 & 重置视图 & 换配色
+    document.getElementById('randomize').addEventListener('click', () => {
+      data = data.map(d => ({ ...d, value: Math.max(0, Math.round(d.value * (0.6 + Math.random()*0.8))) }));
+      loadMapAndRender(data, document.getElementById('palette').value);
+    });
+
+    document.getElementById('resetView').addEventListener('click', () => {
+      chart.dispatchAction({ type: 'restore' });
+    });
+
+    document.getElementById('palette').addEventListener('change', (e) => {
+      loadMapAndRender(data, e.target.value);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>文章内联问答 Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height: 1.7; padding: 24px; }
+    .article { max-width: 800px; margin: 0 auto; }
+    .ask {
+      background: rgba(255,230,150,.45);
+      border-radius: .3em;
+      padding: 0 .25em;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .ask:hover { background: rgba(255,215,120,.8); }
+    .answer-card {
+      position: absolute;
+      z-index: 9999;
+      max-width: 520px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      border-radius: 12px;
+      padding: 12px 14px 10px 14px;
+      font-size: 14px;
+    }
+    .answer-card .head {
+      display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px;
+    }
+    .answer-card .title { font-weight: 600; font-size: 13px; color: #111827; }
+    .answer-card .close { border: none; background: transparent; cursor: pointer; font-size: 18px; line-height: 1; }
+    .answer-card .content { color: #111827; }
+    .answer-card .loading {
+      font-size: 13px; color: #6b7280;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background:#9ca3af; animation: pulse 1s infinite alternate; display:inline-block; }
+    .dot:nth-child(2){animation-delay: .15s}.dot:nth-child(3){animation-delay:.3s}
+    @keyframes pulse { to { opacity:.3; transform: translateY(-2px);} }
+
+    /* 让 card 不会超出屏幕边缘 */
+    @media (max-width: 640px) {
+      .answer-card { max-width: calc(100vw - 24px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="article" id="article">
+    <h1>大阪世博全面实现无现金运营</h1>
+    <p>
+      2025年日本大阪世界博览会于4月13日至10月13日举行，这是首届实现
+      <span class="ask" data-q="为什么大阪世博要全面无现金？有哪些支付方式？">全面无现金</span>
+      运营的世博会，所有交易均需通过数字支付完成。
+      场内支持
+      <span class="ask" data-q="大阪世博支持哪些支付方式？能用支付宝和微信支付吗？">多种支付方式</span>，
+      包括 Alipay、微信支付、Visa 等。
+    </p>
+    <p>
+      日本在数字支付普及上较为缓慢。尽管早有
+      <span class="ask" data-q="日本早期有哪些电子支付技术？FeliCa 和 Osaifu-Keitai 分别是什么？">FeliCa 与 Osaifu-Keitai</span>
+      等技术，但二维码支付直至 2019 年
+      <span class="ask" data-q="什么是日本的JPQR标准？它如何推动无现金化？">JPQR 标准</span>
+      推行后才明显加速。
+    </p>
+    <p>
+      老龄化使得
+      <span class="ask" data-q="为什么日本老年人更偏好现金而不是数字支付？">老年群体对现金依赖</span>
+      明显；小商户也担心
+      <span class="ask" data-q="小商户为什么不愿意上数字支付？手续费和回款周期有什么影响？">手续费和回款周期</span>。
+    </p>
+    <p>
+      入境旅游中，
+      <span class="ask" data-q="中国游客的支付习惯如何影响日本？Alipay+ 在日本如何运作？">中国游客与 Alipay+</span>
+      推动了商户的数字化升级与多钱包互通。
+    </p>
+    <p>
+      日本政府的
+      <span class="ask" data-q="日本有哪些积分返现或设备补贴政策来促进数字支付？效果如何？">积分奖励与补贴政策</span>
+      以及疫情都在一定程度上促进了无现金化发展。
+    </p>
+  </div>
+
+  <!-- 答复卡片容器（固定到 body，脚本中计算定位） -->
+  <div id="qa-layer"></div>
+
+  <script>
+    // 你可以把文章的摘要或全文分段放进这里，作为“上下文”
+    const ARTICLE_CONTEXT = `
+【主题】大阪世博无现金 & 中日数字支付
+要点：世博会场内仅支持数字支付；支持 70+ 支付方式，含 Alipay/微信/信用卡/交通IC卡等；
+日本早期有 FeliCa / Osaifu-Keitai，但二维码支付推进慢，2019 推 JPQR 统一标准后加速；
+老龄化导致老人偏好现金；小店担心 3% 手续费和回款周期；隐私与诈骗问题引发顾虑；
+中国游客增长与 Alipay+ 互通带动日本商户数字化；政府积分补贴促进普及；疫情也是转折点。
+  `.trim();
+
+    const layer = document.getElementById('qa-layer');
+    const article = document.getElementById('article');
+
+    // 事件委托：点击任何 .ask
+    article.addEventListener('click', async (e) => {
+      const target = e.target.closest('.ask');
+      if (!target) return;
+
+      // 若已有卡片，先关掉
+      closeAllCards();
+
+      const question = target.getAttribute('data-q') || target.textContent.trim();
+      const card = createCard(target, question);
+      layer.appendChild(card);
+
+      // 定位：词下方
+      positionCardBelow(card, target);
+
+      // 拉取答案
+      try {
+        const reply = await askLLM(question, ARTICLE_CONTEXT);
+        setCardContent(card, reply);
+      } catch (err) {
+        setCardContent(card, '出错了，请稍后再试。');
+        console.error(err);
+      }
+    });
+
+    function createCard(anchorEl, question) {
+      const card = document.createElement('div');
+      card.className = 'answer-card';
+      card.innerHTML = `
+        <div class="head">
+          <div class="title">基于本文的回答</div>
+          <button class="close" aria-label="关闭">×</button>
+        </div>
+        <div class="content">
+          <div class="loading">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            正在思考「${escapeHtml(question)}」
+          </div>
+        </div>
+      `;
+
+      // 关闭
+      card.querySelector('.close').addEventListener('click', () => {
+        card.remove();
+      });
+
+      // 点击外部关闭
+      setTimeout(() => {
+        const onDocClick = (ev) => {
+          if (!card.contains(ev.target) && ev.target !== anchorEl) {
+            card.remove();
+            document.removeEventListener('click', onDocClick);
+          }
+        };
+        document.addEventListener('click', onDocClick);
+      }, 0);
+
+      return card;
+    }
+
+    function positionCardBelow(card, anchorEl) {
+      const rect = anchorEl.getBoundingClientRect();
+      const top = rect.bottom + window.scrollY + 8; // 词下方 8px
+      let left = rect.left + window.scrollX;
+
+      // 防止超右边
+      const maxLeft = window.scrollX + document.documentElement.clientWidth - card.offsetWidth - 12;
+      card.style.top = `${top}px`;
+      card.style.left = `${Math.min(left, maxLeft)}px`;
+      // 初次插入时 offsetWidth 可能还未计算，稍后再微调一次
+      requestAnimationFrame(() => {
+        const maxLeft2 = window.scrollX + document.documentElement.clientWidth - card.offsetWidth - 12;
+        card.style.left = `${Math.min(left, maxLeft2)}px`;
+      });
+    }
+
+    function setCardContent(card, text) {
+      const content = card.querySelector('.content');
+      content.textContent = text;
+    }
+
+    function closeAllCards() {
+      document.querySelectorAll('.answer-card').forEach(n => n.remove());
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // === 调用后端 /chat ===
+    async function askLLM(message, context) {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          context,
+          // 你可以传一个“只允许依据 context 回答”的指令
+          instruction: '你是一个基于本文回答的助手，只能引用我提供的上下文。若上下文没有信息，请简短说明“文中未提及”。'
+        })
+      });
+      if (!res.ok) throw new Error('Network error');
+      const data = await res.json();
+      return data.reply || '（未获取到答案）';
+    }
+
+    // —— 可选：没有后端时，用本地假回答（把上面的 askLLM 改为下面版本即可）——
+    // async function askLLM(message, context) {
+    //   await new Promise(r => setTimeout(r, 700));
+    //   return `【模拟答复】问题：“${message}”。答案将基于上下文：${context.slice(0, 60)}…`;
+    // }
+  </script>
+</body>
+</html>
