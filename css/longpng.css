@@ -1,0 +1,34 @@
+.hx-pan {
+    height: 90vh;
+    /* 容器更高，可改 70~90vh */
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    border-radius: 14px;
+    cursor: grab;
+
+    /* 隐藏滚动条（各浏览器） */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/旧 Edge */
+}
+
+.hx-pan::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* WebKit/Chromium */
+.hx-pan.dragging {
+    cursor: grabbing;
+}
+
+/* 关键：用真实布局尺寸“放大”图像，产生更宽的可滚动区 */
+.hx-pan img {
+    height: calc(100% * var(--zoom, 1));
+    width: auto;
+    display: block;
+    margin-top: -190px;
+    /* ⬅️ 向上移，可自行调节 */
+}

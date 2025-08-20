@@ -1,0 +1,775 @@
+/* RELATED INFOGRAPHIC COVER 800x421*/
+
+.related-graphic .left {
+  background-image: url("https://multimedia.scmp.com/infographics/news/world/article/3229136/fukushima-nuclear-plant/img/cover-sm.jpg");
+}
+
+.intro {
+  margin-bottom: 0;
+}
+
+main {
+  overflow: visible;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.cover {
+  margin-bottom: 40px;
+  margin-top: 0px;
+  height: 75vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.no-cover {
+  margin-top: 0;
+}
+
+.keys {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 24px;
+  color: #343437;
+}
+
+.keys-circle {
+  display: inline-block;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  vertical-align: -8%;
+  margin-right: 2px;
+}
+
+.keys-sq {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: -7%;
+  margin-right: 4px;
+}
+
+.stranded {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+}
+.openingContainer {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.gradient {
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5%; /* Adjust the height of the gradient */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    #017ca5
+  ); /* Gradient from transparent to white */
+  pointer-events: none; /* So it doesn't interfere with interactivity */
+}
+
+.introSticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0%;
+  margin-bottom: 40px;
+}
+.content {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  max-width: 1800px;
+  opacity: 0;
+}
+
+.scrolly-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Ensure video stays within its container */
+  object-fit: cover;
+}
+
+.scrolly-text-box {
+  position: absolute;
+  width: 660px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 30px;
+  background-color: rgba(53, 122, 163, 0.8);
+  border-radius: 10px;
+  z-index: 3;
+}
+
+#text-box-1 {
+  top: 20%;
+  opacity: 0; /* Initially hidden */
+  transform: translateX(-50%) translateY(50px); /* Initially positioned below */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+}
+
+#text-box-2 {
+  top: 40%;
+  width: auto; /* Let width adjust to content */
+  height: auto; /* Let height adjust to content */
+  opacity: 1; /* Keep visible */
+  max-width: 680px;
+}
+
+.scrollyContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.scrollyFull {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.scrollymedium {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.scrollySticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 6%;
+}
+
+.scrollyM {
+  display: none;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.scrollyT {
+  display: none;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.showM {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.showT {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.scrolly1.fadeIn,
+.scrolly2.fadeIn {
+  opacity: 1;
+  transition: all 2s ease-in-out;
+}
+
+.decay1.fadeIn,
+.decay2.fadeIn,
+.decay3.fadeIn,
+.decay4.fadeIn,
+.decay5.fadeIn {
+  opacity: 1;
+  transition: all 1s ease-in-out;
+}
+
+.map1.fadeIn,
+.map2.fadeIn,
+.map3.fadeIn,
+.map4.fadeIn,
+.map5.fadeIn,
+.map6.fadeIn,
+.map7.fadeIn,
+.map8.fadeIn,
+.map9.fadeIn,
+.map10.fadeIn,
+.map11.fadeIn,
+.map12.fadeIn,
+.map13.fadeIn,
+.map14.fadeIn,
+.map15.fadeIn,
+.map16.fadeIn,
+.map17.fadeIn,
+.map18.fadeIn,
+.map19.fadeIn,
+.map20.fadeIn,
+.map21.fadeIn,
+.map22.fadeIn {
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+.boat1.fadeIn,
+.boat2.fadeIn,
+.boat3.fadeIn,
+.boat4.fadeIn,
+.boat5.fadeIn,
+.boat6.fadeIn,
+.boat7.fadeIn {
+  opacity: 1;
+  transition: all 1s;
+}
+
+.ai2html660 {
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.ai2html960 {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.ai2html1200 {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ai2html1600 {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.trigger ul li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.trigger ul li.fadeIn {
+  opacity: 1;
+}
+
+.imageEX {
+  display: none;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.imageXL {
+  display: none;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.imageLG {
+  display: none;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.imageMD {
+  display: none;
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
+}
+.imageSM {
+  display: none;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.imageEXall {
+  max-width: 1600px;
+}
+.imageXLall {
+  max-width: 1200px;
+}
+.imageLGall {
+  max-width: 900px;
+}
+.imageMDall {
+  max-width: 660px;
+}
+
+/*------------------------- | H scroll | -----------------------------*/
+
+.scrollSec {
+  height: 100vh;
+  position: relative;
+}
+.sticky-wrapper,
+.sticky-inner,
+.step {
+  height: 100%;
+}
+.sticky-wrapper {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+.sticky-inner {
+  display: flex;
+  width: max-content;
+  margin-top: 60px;
+}
+
+.step {
+  flex: 0 0 100vw;
+  margin: 50px auto;
+}
+.step img {
+  height: 1000px;
+}
+
+/* .vessels {
+  flex: 0 0 10vw;
+  margin: 10px auto;
+  height: 850px;
+} */
+
+.whale {
+  flex: 0 0 100vw;
+  margin: 20px auto;
+}
+.whale img {
+  height: 1200px;
+}
+
+.vesselScroll .step img {
+  height: 850px;
+}
+
+.ds {
+}
+.mb {
+  display: none;
+}
+
+/*------------------------- | MEDIA QUERIES | -----------------------------*/
+
+@media only screen and (max-width: 2000px) {
+  .imageFull {
+    display: none;
+  }
+  .imageEX {
+    display: block;
+  }
+  .whale img {
+    height: 950px;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .imageEX,
+  .imageEXall {
+    display: none;
+  }
+  .imageXL {
+    display: block;
+  }
+  .ai2html1600 {
+    max-width: 1200px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .scrollySticky {
+    top: 6%;
+  }
+}
+
+@media only screen and (max-height: 1200px) {
+  .scrollyD {
+    display: none;
+  }
+  .scrollyT {
+    display: block;
+  }
+  .scrollyM {
+    display: none;
+  }
+  .showT {
+    display: block;
+  }
+  .showM {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1440px) {
+  .ds {
+    display: none;
+  }
+  .mb {
+    display: block;
+  }
+  .whale img {
+    height: 600px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .imageXL,
+  .imageXLall {
+    display: none;
+  }
+  .imageLG {
+    display: block;
+  }
+  .ai2html1200,
+  .ai2html1600 {
+    max-width: 660px;
+  }
+  .scrollyD {
+    display: none;
+  }
+  .scrollyT {
+    display: block;
+  }
+  .scrollyM {
+    display: none;
+  }
+  .showT {
+    display: block;
+  }
+  .showM {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .ai2html960 {
+    max-width: 660px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .imageLG,
+  .imageLGall {
+    display: none;
+  }
+  .imageMD {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .whale img {
+    height: 600px;
+  }
+
+  .vesselScroll .step img {
+    height: 700px;
+  }
+
+  .ai2html660,
+  .ai2html960,
+  .ai2html1200,
+  .ai2html1600 {
+    max-width: 360px;
+  }
+  .imageMD,
+  .imageMDall {
+    display: none;
+  }
+  .imageSM {
+    display: block;
+  }
+  .consumption {
+    max-width: 360px;
+  }
+  .consumption-d {
+    display: none;
+  }
+  .consumption-t {
+    display: none;
+  }
+  .consumption-m {
+    display: block;
+  }
+  .showM {
+    display: block;
+  }
+  .showT {
+    display: none;
+  }
+  .scrollyD {
+    display: none;
+  }
+  .scrollyM {
+    display: block;
+  }
+  .scrollyT {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .intro h2 {
+    margin: 8px 10px;
+  }
+
+  #text-box-1 {
+    width: 90%; /* Example: 90% of the viewport width */
+    left: 50%;
+    transform: translateX(-50%) translateY(50px);
+  }
+
+  #text-box-2 {
+    width: 80%; /* Example: 80% of the viewport width */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  opacity: 0; /* Start invisible */
+}
+
+.fade-in-up.visible {
+  animation: fadeInUp 2s ease forwards; /* Trigger animation */
+}
+
+/* Scrolly part */
+
+.d3-scroll-part {
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#chart_box {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+#chart-d3 {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  margin: 0 auto;
+  width: 800px;
+  height: 500px;
+  top: 40%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#chart-dots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  margin: 0 auto;
+  width: 500px;
+  height: 500px;
+  overflow: visible;
+}
+
+.d3-scroll-part .year-label {
+  font-family: Roboto;
+  font-size: 12px;
+  text-anchor: end;
+}
+
+.d3-scroll-part .month-label {
+  font-family: Roboto;
+  font-size: 12px;
+  text-anchor: end;
+}
+
+.d3-scroll-part .age-label {
+  font-family: Roboto;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.d3-scroll-part .code-label {
+  font-family: Roboto;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.d3-scroll-part .text-box {
+  position: relative;
+  width: 40%;
+  margin: 50vh auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+/* Initially hide month labels */
+.d3-scroll-part #chart .month-label {
+  opacity: 0;
+}
+
+/* Mobile styles for year-based chart (steps 0-5) */
+@media only screen and (max-width: 768px) {
+  #chart_box {
+    top: 50px;
+    padding-left: 0;
+  }
+
+  #chart-d3 {
+    width: 95vw;
+    height: auto;
+    max-width: 500px;
+    top: 30%;
+    margin-left: -12vw;
+  }
+
+  #chart-dots {
+    width: 95vw;
+    height: auto;
+    max-width: 500px;
+    transform: scale(0.55);
+    transform-origin: center center;
+  }
+
+  /* Make dots slightly bigger on mobile */
+  #chart-dots circle {
+    r: 5px !important;
+  }
+
+  /* Make text box content smaller */
+  .d3-scroll-part .text-box {
+    font-size: 12px;
+    line-height: 1.3;
+    padding: 12px;
+    width: 85%;
+  }
+
+  /* Increase age tag size for tablets */
+  .d3-scroll-part .age-label,
+  .d3-scroll-part .ageTag {
+    font-size: 25px !important;
+  }
+
+  /* Increase age tag size for tablets */
+  .d3-scroll-part .code-label,
+  .d3-scroll-part .codeTag {
+    font-size: 25px !important;
+  }
+
+  /* Increase month tag size for phones */
+  .d3-scroll-part .month-label,
+  .d3-scroll-part .monthTag {
+    font-size: 25px !important;
+  }
+}
+
+/* Small mobile devices */
+@media only screen and (max-width: 480px) {
+  #chart_box {
+    top: 30px;
+    padding-left: 0;
+  }
+
+  #chart-d3 {
+    width: 100vw;
+    max-width: 400px;
+    top: 25%;
+    margin-left: -8vw; /* Increased left shift from -5vw */
+  }
+
+  #chart-dots {
+    width: 100vw;
+    max-width: 400px;
+    transform: scale(0.45);
+    transform-origin: center center;
+  }
+
+  /* Even smaller dots for very small screens */
+  #chart-dots circle {
+    r: 4.5px !important;
+  }
+
+  /* Make text box content even smaller for mobile phones */
+  .d3-scroll-part .text-box {
+    font-size: 11px; /* Reduced from 12px */
+    line-height: 1.2; /* Further adjusted line height */
+    padding: 10px; /* Further reduced padding */
+    width: 80%; /* Adjusted width */
+  }
+
+  /* Increase age tag size for phones */
+  .d3-scroll-part .age-label,
+  .d3-scroll-part .ageTag {
+    font-size: 25px !important;
+  }
+
+  /* Increase code tag size for phones */
+  .d3-scroll-part .code-label,
+  .d3-scroll-part .codeTag {
+    font-size: 25px !important;
+  }
+
+  /* Increase month tag size for phones */
+  .d3-scroll-part .month-label,
+  .d3-scroll-part .monthTag {
+    font-size: 25px !important;
+  }
+}
+
+header {
+  z-index: 1000;
+}

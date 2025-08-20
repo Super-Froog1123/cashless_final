@@ -1,0 +1,451 @@
+/* Replace this part, from here: */
+:root {
+  --background-color: #ffffff;
+  --heavy-text: #f7c89c;
+  --medium-text: #343437;
+  --light-text: #ffffff;
+  --primary-color: #a3a7aa;
+  --secondary-color: #d5d8da;
+  --tertiary-color: #f3f4f4;
+  --shadow: #00000020;
+  --neutral-1: #00000005;
+  --neutral-2: #00000010;
+  --neutral-3: #00000015;
+}
+/* To here */
+
+/* Page setup */
+body,
+footer,
+footer .topback {
+  background-color: var(--background-color);
+}
+
+.grey_back {
+  background-color: #ffffff;
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* general text */
+section.intro h1 {
+  color: var(--heavy-text);
+  font-size: 56px;
+  line-height: 80px;
+  overflow-wrap: break-word; /* Allow long words to break and wrap */
+  word-wrap: break-word; /* Older browsers compatibility */
+  overflow: visible; /* Ensure overflow is visible */
+}
+
+h2 {
+  color: var(--medium-text);
+}
+
+p {
+  color: var(--medium-text);
+  opacity: 1;
+}
+
+h4 {
+  font-family: Merriweather, serif;
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--heavy-text);
+  letter-spacing: 0;
+  font-weight: 800;
+  margin-top: 60px auto;
+  overflow-wrap: break-word; /* Allow long words to break and wrap */
+  word-wrap: break-word; /* Older browsers compatibility */
+  overflow: visible; /* Ensure overflow is visible */
+
+  opacity: 1;
+}
+
+h3,
+section.intro .author a,
+section.intro .author,
+section.intro .date {
+  color: var(--light-text);
+}
+
+section.intro .author a:hover {
+  color: var(--medium-text);
+}
+section.intro p {
+  color: var(--medium-text);
+  opacity: 0.8;
+}
+
+section.light h2 {
+  font-family: Merriweather, serif;
+  font-size: 21px;
+  line-height: 28px;
+  color: #343437;
+  letter-spacing: 0;
+  font-weight: 1000;
+  margin-top: 60px auto;
+  opacity: 0.8;
+}
+
+section.light h3 {
+  font-family: Roboto;
+  font-size: 18px;
+  line-height: 28px;
+  color: #343437;
+  letter-spacing: 0;
+  font-weight: 1000;
+  margin-top: 20px auto;
+  opacity: 0.6;
+}
+
+section.light p {
+  font-family: Merriweather, serif;
+  font-size: 1.3em;
+  color: #343437;
+  letter-spacing: 0;
+  font-weight: 400;
+  margin: 10px auto;
+  opacity: 0.8;
+}
+
+h5 {
+  font-family: Merriweather, serif;
+  font-size: 16px;
+  color: #343437;
+  letter-spacing: 0;
+  font-weight: 400;
+  margin: 28px auto;
+}
+
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* title tag */
+.label {
+  color: #eaeaea;
+}
+.white {
+  background-color: #eaeaea;
+  color: var(--heavy-text);
+}
+.normal {
+  background-color: #eaeaea;
+}
+.breaking {
+  background-color: #eaeaea;
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* Author-top */
+.tippy-tooltip {
+  background-color: var(--tertiary-color);
+  border-bottom-color: var(--tertiary-color);
+  box-shadow: 0px 13px 27px -5px var(--shadow), 0px 8px 16px -8px var(--shadow),
+    0px -6px 16px -6px var(--shadow);
+  border-color: var(--tertiary-color);
+}
+.tippy-tooltip[data-placement^="bottom"] > .tippy-arrow {
+  border-bottom-color: var(--tertiary-color);
+}
+.tippy-tooltip[data-placement^="top"] > .tippy-arrow {
+  border-top-color: var(--tertiary-color);
+}
+.tooltip {
+  background-color: var(--tertiary-color);
+  color: var(--color-700);
+}
+.loader {
+  border: 3px solid var(--tertiary-color);
+  border-top: 3px solid var(--secondary-color);
+}
+.tooltip .artistname {
+  /* color: var(--medium-text); */
+  color: #4d4d4d;
+}
+.tooltip .artistposition {
+  color: #767676;
+}
+.tooltip .minifooter .social a,
+.tooltip .minifooter .social svg {
+  fill: #767676;
+}
+.tooltip .minifooter .profile,
+.tooltip .minifooter .profile a {
+  color: #767676;
+}
+.tooltip .minifooter .profile a:hover {
+  color: #767676;
+}
+.tooltip .minifooter .social:after {
+  background-color: #767676;
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* Links and button */
+a,
+a:active,
+a:visited {
+  color: var(--medium-text);
+}
+a:hover {
+  color: var(--heavy-text) !important;
+}
+
+button {
+  color: var(--medium-text);
+  border-color: var(--neutral-2);
+  background-color: #fff;
+}
+button:hover {
+  background-color: #e6e6e6;
+  border-color: var(--neutral-3);
+  color: var(--heavy-text);
+}
+button.dark {
+  background-color: var(--primary-color);
+  border-color: var(--neutral-2);
+  color: #fff;
+}
+button.dark:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--neutral-3);
+  color: #fff;
+}
+
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* Elements */
+.standar figure figcaption {
+  color: var(--light-text);
+}
+table {
+  color: var(--light-text);
+}
+td,
+th {
+  border-color: var(--neutral-3);
+}
+.stats-tabs li {
+  color: var(--heavy-text);
+  border-color: var(--neutral-3);
+}
+.stats-tabs li em {
+  color: var(--light-text);
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* Related graphic */
+.related-graphic {
+  background-color: var(--neutral-2);
+}
+.related-graphic h4 {
+  color: var(--light-text);
+}
+.related-graphic .related-tag {
+  color: var(#ffffff);
+}
+.related-graphic .related-button {
+  background: var(--primary-color);
+  color: #fff;
+}
+.related-graphic:hover {
+  background-color: var(--neutral-3);
+}
+.related-graphic:hover .related-button {
+  background: var(--secondary-color);
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/*Author bottom*/
+.author-bottom .author {
+  border-color: var(--neutral-3);
+}
+.author-bottom .author .info .visual {
+  color: #ffffff;
+}
+.author-bottom .author .info .authorname {
+  color: #ffffff;
+}
+.author-bottom .author .info .minifooter .profile,
+.author-bottom .author .info .minifooter .profile a {
+  color: #ffffff;
+}
+
+.author-bottom .author .info .minifooter .social a svg {
+  fill: #ffffff;
+}
+
+.author-bottom .author .info .minifooter .profile a:hover {
+  color: #ffffff;
+}
+.author-bottom .author .info .minifooter .social a:hover svg {
+  fill: var(#ffffff);
+}
+
+.author-bottom .author .info .minifooter .social:after {
+  background: var(#ffffff);
+}
+.credits a {
+  color: var(#ffffff) !important;
+}
+
+.credits a:hover {
+  color: var(#ffffff) !important;
+}
+.credits p {
+  color: var(#ffffff);
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+/* Footer top */
+.social h4 {
+  color: var(--light-text);
+}
+.social a {
+  background-color: var(--neutral-2);
+  fill: var(--light-text);
+}
+.social a:hover {
+  background-color: var(--neutral-3);
+  fill: var(--heavy-text);
+}
+aside .related-links h3 {
+  border-color: var(--neutral-3);
+}
+aside .related-links p a {
+  color: var(--medium-text);
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+/* Footer */
+footer {
+  background-color: var(--neutral-1);
+}
+footer .related-content p {
+  color: var(--light-text);
+}
+footer .related-content h4 {
+  color: var(--light-text);
+}
+footer .related-content a {
+  color: var(--medium-text);
+}
+footer .related-label {
+  border-color: var(--neutral-1);
+  background-color: var(--neutral-2);
+}
+footer .related-label p {
+  color: var(--heavy-text);
+}
+footer .topback {
+  border-color: var(--neutral-3);
+}
+/* footer .related-infographics .control-progress span {
+  background-color: var(--tertiary-text);
+} */
+footer .related-content .social-bottom {
+  background-color: var(--neutral-2);
+  fill: var(--light-text);
+}
+footer .related-content .social-bottom:hover {
+  background-color: var(--neutral-3);
+  fill: var(--medium-text);
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* Content box */
+.contentbox {
+  background: var(--tertiary-color);
+  box-shadow: 0 26px 38px -23px var(--shadow);
+  -webkit-box-shadow: 0 26px 38px -23px var(--shadow);
+  -moz-box-shadow: 0 26px 38px -23px var(--shadow);
+}
+.contentbox:hover {
+  box-shadow: -1px 41px 69px -26px var(--shadow);
+  -webkit-box-shadow: -1px 41px 69px -26px var(--shadow);
+  -moz-box-shadow: -1px 41px 69px -26px var(--shadow);
+}
+.contentbox .info .heading {
+  color: var(--background-color);
+}
+.contentbox .info .topic {
+  color: var(--background-color);
+}
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+*/
+/* Main menu */
+
+@media only screen and (max-width: 768px) {
+  footer .related-content .column {
+    border-color: var(--neutral-3);
+  }
+  footer .related-infographics .control-progress span {
+    background-color: var(--neutral-3);
+  }
+  footer .related-infographics .control-progress .dot.active {
+    background-color: var(--primary-color);
+    border: 0px;
+  }
+}
